@@ -23,7 +23,7 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 }
 
     body{
-    background-color: #262829;
+    background-color: var(--calendar-bg-color);
     }
 .calendar {
     font-family: 'Nunito', sans-serif;
@@ -148,7 +148,8 @@ function CalendarControl() {
   const calendar = new Date();
   const calendarControl = {
     localDate: new Date(),
-    calWeekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    calFullDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    calWeekDays: ["S", "M", "T", "W", "T", "F", "S"],
     calMonthName: [
       "January",
       "February",
@@ -230,10 +231,10 @@ function CalendarControl() {
       </div>
       <div class="calendar-next"><a href="#">></a></div>
       </div>
-      <div class="calendar-today-date">Today: 
-        ${calendarControl.calWeekDays[calendarControl.localDate.getDay()]}, 
-        ${calendarControl.localDate.getDate()}, 
+      <div class="calendar-today-date">
+        ${calendarControl.calFullDays[calendarControl.localDate.getDay()]} 
         ${calendarControl.calMonthName[calendarControl.localDate.getMonth()]} 
+        ${calendarControl.localDate.getDate()}, 
         ${calendarControl.localDate.getFullYear()}
       </div>
       <div class="calendar-body"></div></div>`;
