@@ -6,6 +6,7 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 <style>
     
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
+/* Define CSS variables for styling */
 :root {
     --calendar-bg-color: #262829;
     --calendar-font-color: #FFF;
@@ -17,18 +18,22 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     --calendar-nextprev-bg-color: #1a1f21;
 }
 
+/* Reset default padding and margin for all elements */
 * {
     padding: 0;
     margin: 0;
 }
 
-    body{
+/* Set the background color of the body */
+body{
     background-color: var(--calendar-bg-color);
-    }
+}
+
+/* Define CSS styles for the calendar container */
 .calendar {
     font-family: 'Nunito', sans-serif;
     position: relative;
-    max-width: 400px; /*change as per your design need */
+    max-width: 400px; /* Change as per your design need */
     min-width: 320px;
     background: var(--calendar-bg-color);
     color: var(--calendar-font-color);
@@ -38,16 +43,19 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     font-weight: normal;
 }
 
+/* Define CSS styles for the inner content of the calendar */
 .calendar-inner {
     padding: 10px 10px;
 }
 
+/* Define CSS styles for the calendar grid */
 .calendar .calendar-inner .calendar-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
 }
 
+/* Define CSS styles for individual calendar cells */
 .calendar .calendar-inner .calendar-body div {
     padding: 4px;
     min-height: 30px;
@@ -56,16 +64,19 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     margin: 10px 2px 0px;
 }
 
+/* Define CSS styles for the first row of calendar cells (weekdays) */
 .calendar .calendar-inner .calendar-body div:nth-child(-n+7) {
     border: 1px solid transparent;
     border-bottom: 1px solid var(--weekdays-border-bottom-color);
 }
 
+/* Define CSS styles for hovering over calendar cells */
 .calendar .calendar-inner .calendar-body div:nth-child(-n+7):hover {
     border: 1px solid transparent;
     border-bottom: 1px solid var(--weekdays-border-bottom-color);
 }
 
+/* Define CSS styles for the links inside calendar cells */
 .calendar .calendar-inner .calendar-body div>a {
     color: var(--calendar-font-color);
     text-decoration: none;
@@ -73,23 +84,28 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     justify-content: center;
 }
 
+/* Define CSS styles for hovered calendar cells */
 .calendar .calendar-inner .calendar-body div:hover {
     border: 1px solid var(--calendar-date-hover-color);
 }
 
+/* Define CSS styles for hovered empty calendar cells */
 .calendar .calendar-inner .calendar-body div.empty-dates:hover {
     border: 1px solid transparent;
 }
 
+/* Define CSS styles for the calendar controls */
 .calendar .calendar-inner .calendar-controls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
 
+/* Define CSS styles for links inside the calendar controls */
 .calendar .calendar-inner .calendar-controls a {
     color: var(--calendar-font-color);
 }
 
+/* Define CSS styles for the current date display */
 .calendar .calendar-inner .calendar-today-date {
     display: grid;
     text-align: center;
@@ -99,6 +115,7 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     padding: 8px 0px;
 }
 
+/* Define CSS styles for the year and month labels */
 .calendar .calendar-inner .calendar-controls .calendar-year-month {
     display: flex;
     min-width: 100px;
@@ -106,28 +123,34 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     align-items: center;
 }
 
+/* Define CSS styles for the next button */
 .calendar .calendar-inner .calendar-controls .calendar-next {
     text-align: right;
 }
 
+/* Define CSS styles for the year and month labels */
 .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-year-label,
 .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-month-label {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 26px;
 }
 
+/* Define CSS styles for the "today" cell */
 .calendar .calendar-inner .calendar-body .calendar-today {
     background: var(--calendar-today-color);
 }
 
+/* Define CSS styles for hovered "today" cell */
 .calendar .calendar-inner .calendar-body .calendar-today:hover {
     border: 1px solid transparent;
 }
 
+/* Define CSS styles for links inside the "today" cell */
 .calendar .calendar-inner .calendar-body .calendar-today a {
     outline: 2px solid var(--calendar-today-innerborder-color);
 }
 
+/* Define CSS styles for next and previous month buttons */
 .calendar .calendar-inner .calendar-controls .calendar-next a,
 .calendar .calendar-inner .calendar-controls .calendar-prev a {
     font-family: consolas, sans-serif;
@@ -140,16 +163,25 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 }
 </style>
 </head>
+<body>
 <div class="calendar"></div>
 <script>
-//check the console for date click event
+// JavaScript code for the calendar
 
+// Define a function called CalendarControl
 function CalendarControl() {
+  // Create a new Date object for the current date
   const calendar = new Date();
+
+  // Define an object called calendarControl with various properties and methods
   const calendarControl = {
+    // Store the local date
     localDate: new Date(),
+    // Define an array of full day names
     calFullDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    // Define an array of abbreviated day names
     calWeekDays: ["S", "M", "T", "W", "T", "F", "S"],
+    // Define an array of month names
     calMonthName: [
       "January",
       "February",
@@ -164,21 +196,27 @@ function CalendarControl() {
       "November",
       "December"
     ],
+    // Function to calculate the number of days in a month
     daysInMonth: function(month, year) {
       return new Date(year, month, 0).getDate();
     },
+    // Function to get the first day of the current month
     firstDay: function() {
       return new Date(calendar.getFullYear(), calendar.getMonth(), 1);
     },
+    // Function to get the last day of the current month
     lastDay: function() {
       return new Date(calendar.getFullYear(), calendar.getMonth() + 1, 0);
     },
+    // Function to get the day number of the first day of the current month
     firstDayNumber: function() {
       return calendarControl.firstDay().getDay() + 1;
     },
+    // Function to get the day number of the last day of the current month
     lastDayNumber: function() {
       return calendarControl.lastDay().getDay() + 1;
     },
+    // Function to get the last date of the previous month
     getPreviousMonthLastDate: function() {
       let lastDate = new Date(
         calendar.getFullYear(),
@@ -187,14 +225,17 @@ function CalendarControl() {
       ).getDate();
       return lastDate;
     },
+    // Function to navigate to the previous month
     navigateToPreviousMonth: function() {
       calendar.setMonth(calendar.getMonth() - 1);
       calendarControl.attachEventsOnNextPrev();
     },
+    // Function to navigate to the next month
     navigateToNextMonth: function() {
       calendar.setMonth(calendar.getMonth() + 1);
       calendarControl.attachEventsOnNextPrev();
     },
+    // Function to navigate to the current month
     navigateToCurrentMonth: function() {
       let currentMonth = calendarControl.localDate.getMonth();
       let currentYear = calendarControl.localDate.getFullYear();
@@ -202,16 +243,19 @@ function CalendarControl() {
       calendar.setYear(currentYear);
       calendarControl.attachEventsOnNextPrev();
     },
+    // Function to display the current year
     displayYear: function() {
       let yearLabel = document.querySelector(".calendar .calendar-year-label");
       yearLabel.innerHTML = calendar.getFullYear();
     },
+    // Function to display the current month
     displayMonth: function() {
       let monthLabel = document.querySelector(
         ".calendar .calendar-month-label"
       );
       monthLabel.innerHTML = calendarControl.calMonthName[calendar.getMonth()];
     },
+    // Function to handle date selection
     selectDate: function(e) {
       console.log(
         `${e.target.textContent} ${
@@ -219,6 +263,7 @@ function CalendarControl() {
         } ${calendar.getFullYear()}`
       );
     },
+    // Function to plot the calendar selectors (month, year, etc.)
     plotSelectors: function() {
       document.querySelector(
         ".calendar"
@@ -239,6 +284,7 @@ function CalendarControl() {
       </div>
       <div class="calendar-body"></div></div>`;
     },
+    // Function to plot the day names (S, M, T, etc.)
     plotDayNames: function() {
       for (let i = 0; i < calendarControl.calWeekDays.length; i++) {
         document.querySelector(".calendar .calendar-body").innerHTML += `<div>${
@@ -246,6 +292,7 @@ function CalendarControl() {
         }</div>`;
       }
     },
+    // Function to plot the calendar dates
     plotDates: function() {
       document.querySelector(".calendar .calendar-body").innerHTML = "";
       calendarControl.plotDayNames();
@@ -259,7 +306,7 @@ function CalendarControl() {
         calendar.getFullYear()
       );
 
-      // dates of current month
+      // Dates of the current month
       for (let i = 1; i < calendarDays; i++) {
         if (i < calendarControl.firstDayNumber()) {
           prevDateCount += 1;
@@ -286,13 +333,14 @@ function CalendarControl() {
         }
       }
 
-      //remaining dates after month dates
+      // Remaining dates after month dates
       for (let j = 0; j < prevDateCount + 1; j++) {
         document.querySelector(
           ".calendar .calendar-body"
         ).innerHTML += `<div><a class="dateNumber" href="#">${count++}</a></div>`;
       }
     },
+    // Function to attach event listeners to various elements
     attachEvents: function() {
       let prevBtn = document.querySelector(".calendar .calendar-prev a");
       let nextBtn = document.querySelector(".calendar .calendar-next a");
@@ -315,20 +363,25 @@ function CalendarControl() {
         );
       }
     },
+    // Function to attach event listeners after navigating to the next/previous month
     attachEventsOnNextPrev: function() {
       calendarControl.plotDates();
       calendarControl.attachEvents();
     },
+    // Initialize the calendar
     init: function() {
       calendarControl.plotSelectors();
       calendarControl.plotDates();
       calendarControl.attachEvents();
     }
   };
+  // Initialize the calendarControl object
   calendarControl.init();
 }
 
+// Create an instance of the CalendarControl
 const calendarControl = new CalendarControl();
 
 </script>
+</body>
 </html>
